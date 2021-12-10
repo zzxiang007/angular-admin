@@ -4,7 +4,7 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 
 const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, data: {title: '系统首页'}},
-  {path: '', redirectTo: 'dashboard'}
+  {path: '', redirectTo: 'dashboard',pathMatch:'full'}
 ];
 
 @NgModule({

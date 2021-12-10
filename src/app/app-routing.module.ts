@@ -1,17 +1,23 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from "./login/login.component";
-import {LayoutComponent} from "./layout/layout.component";
 import {AuthGuard} from "./auth.guard";
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent, data: {title: '登录'}, canActivate: [AuthGuard]},
   {
-    path: '', component: LayoutComponent, data: {title: '基础框架'}, canActivateChild: [AuthGuard],
-    children: [
-      {path: 'index', loadChildren: () => import('./index/index.module').then(m => m.IndexModule)}
-    ]
+    path: 'login',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
   },
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/layout/layout.module').then(m => m.LayoutModule),
+  },
+  {
+    path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
